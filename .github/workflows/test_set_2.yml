@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2022-2023 Lin Song <linsongui@gmail.com>
+# Copyright (C) 2022-2024 Lin Song <linsongui@gmail.com>
 
 name: test_set_2
 
@@ -17,7 +17,7 @@ jobs:
       image: ${{ matrix.os_version }}
       options: --cap-add=NET_ADMIN --device=/dev/net/tun
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Test

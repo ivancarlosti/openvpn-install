@@ -5,7 +5,7 @@
 # Based on the work of Nyr and contributors at:
 # https://github.com/Nyr/openvpn-install
 #
-# Copyright (c) 2022-2023 Lin Song <linsongui@gmail.com>
+# Copyright (c) 2022-2024 Lin Song <linsongui@gmail.com>
 # Copyright (c) 2013-2023 Nyr
 #
 # Released under the MIT License, see the accompanying file LICENSE.txt
@@ -298,7 +298,7 @@ select_protocol() {
 select_port() {
 	if [ "$auto" = 0 ]; then
 		echo
-		echo "What port should OpenVPN listen to?"
+		echo "Which port should OpenVPN listen to?"
 		read -rp "Port [1194]: " port
 		until [[ -z "$port" || "$port" =~ ^[0-9]+$ && "$port" -le 65535 ]]; do
 			echo "$port: invalid port."
@@ -502,7 +502,7 @@ EOF
 show_header2() {
 cat <<'EOF'
 
-Copyright (c) 2022-2023 Lin Song
+Copyright (c) 2022-2024 Lin Song
 Copyright (c) 2013-2023 Nyr
 EOF
 }
@@ -646,7 +646,7 @@ LimitNPROC=infinity" > /etc/systemd/system/openvpn-server@server.service.d/disab
 		)
 	fi
 	# Get easy-rsa
-	easy_rsa_url='https://github.com/OpenVPN/easy-rsa/releases/download/v3.1.5/EasyRSA-3.1.5.tgz'
+	easy_rsa_url='https://github.com/OpenVPN/easy-rsa/releases/download/v3.1.7/EasyRSA-3.1.7.tgz'
 	mkdir -p /etc/openvpn/server/easy-rsa/
 	{ wget -t 3 -T 30 -qO- "$easy_rsa_url" 2>/dev/null || curl -m 30 -sL "$easy_rsa_url" ; } | tar xz -C /etc/openvpn/server/easy-rsa/ --strip-components 1
 	if [ ! -f /etc/openvpn/server/easy-rsa/easyrsa ]; then
@@ -955,6 +955,7 @@ else
 			elif [ -n "$num_of_clients" ]; then
 				printf '\n%s\n' "Total: $num_of_clients clients"
 			fi
+			exit
 		;;
 		4)
 			num_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
